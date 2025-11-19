@@ -1,4 +1,6 @@
-﻿namespace SimpleDelegateApp
+﻿using System.Reflection;
+
+namespace SimpleDelegateApp
 {
 
     delegate void DPrintMessage(string name);
@@ -9,9 +11,10 @@
         {
             //CaseStudy1();
 
-            //CaseStudy2();
+          //  CaseStudy2();
 
-            PrintWizard(ShutdownComputer);
+           PrintWizard(PrintHello);
+           PrintWizard(PrintGoodBye);
 
         }
         static void ShutdownComputer(string name) {
@@ -28,7 +31,8 @@
             Console.WriteLine("inside printwizard..");
             Console.WriteLine("doing some printing operation and notify you once done");
 
-            fnPtrCallbck("WORK DONE PrintWizard");
+            fnPtrCallbck.Invoke("Mr. PrintWizard1");
+           // fnPtrCallbck.Invoke("Mr. PrintWizard2");
         }
         private static void CaseStudy2()
         {
@@ -37,19 +41,22 @@
             fnPointer += PrintHello;
             fnPointer += PrintGoodBye;
 
-            fnPointer("CHAMP");
+            fnPointer("CHAMP1");
+            fnPointer("CHAMP2");
         }
 
         private static void CaseStudy1()
         {
             DPrintMessage fnPointer;//expects a function with same signature
             fnPointer = PrintGoodBye;//address or name of funciton
-            fnPointer("Emerson");
+            fnPointer.Invoke("Emerson");
 
             fnPointer = PrintHello;
-            fnPointer("Krishna");
+            fnPointer.Invoke("Krishna1");
+            fnPointer.Invoke("Krishna2");
+            fnPointer.Invoke("Krishna3");
 
-           // fnPointer = Foo;
+            // fnPointer = Foo;
         }
 
         static void PrintGoodBye(string name) {
